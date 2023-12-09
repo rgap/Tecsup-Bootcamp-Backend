@@ -28,7 +28,14 @@ class Book:
         return None
 
     def insert_book(self, book):
+        book.id = len(self.books) + 1
         self.books.append(book)
+
+    def delete_book(self, book_id):
+        for book in self.books:
+            if book.id == book_id:
+                return self.books.pop()
+        return None
 
     def to_json(self):
         return {
@@ -40,3 +47,6 @@ class Book:
             "summary": self.summary,
             "image_url": self.image_url,
         }
+
+    # delete
+    # update

@@ -21,13 +21,13 @@ product = Product()
 
 
 # Controller for Displaying the Product's Price
-@app.route("/product", methods=["GET"])
+@app.route("/products", methods=["GET"])
 def get_product():
     return render_template("index.html", price=product.get_price())
 
 
 # Controller for Updating the Product's Price
-@app.route("/product", methods=["POST"])
+@app.route("/products", methods=["POST"])
 def update_product():
     new_price = request.form.get("price")
     product.update_price(new_price)

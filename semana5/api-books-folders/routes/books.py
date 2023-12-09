@@ -27,6 +27,8 @@ def create_book():
 def get_book(book_id):
     try:
         searched = book.search_book_by_id(book_id)
+        if not searched:
+            return jsonify({"message": "No se encontró el libro"})
         return searched
     except Exception as e:
         return jsonify({"message": str(e)})

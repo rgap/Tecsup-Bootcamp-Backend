@@ -1,6 +1,8 @@
-from flask import Flask, redirect, render_template, request, url_for
+# app.py
+from flask import Flask, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from utils import response_error, response_success  # Import utility functions
 
 app = Flask(__name__)
 
@@ -33,23 +35,29 @@ class Product(db.Model):
 # Controller for Displaying the Product's Price
 @app.route("/products", methods=["GET"])
 def get_product():
-    product = Product.query.first()
-    price = product.price if product else None
-    return render_template("index.html", price=price)
+    try:
+        product = Product.query.first()
+        price = product.price if product else None
+        return response_success({"price": price})
+    except Exception as e:
+        return response_error(str(e), 500)
 
 
 # Controller for Updating the Product's Price
 @app.route("/products", methods=["POST"])
 def update_product():
-    new_price = request.form.get("price")
-    product = Product.query.first()
-    if product:
-        product.update_price(new_price)
-    else:
-        product = Product(price=new_price)
-        db.session.add(product)
-    db.session.commit()
-    return redirect(url_for("get_product"))
+    try:
+        new_price = request.json.get("price")
+        product = Product.query.first()
+        if product:
+            product.update_price(new_price)
+        else:
+            product = Product(price=new_price)
+            db.session.add(product)
+        db.session.commit()
+        return response_success({"message": "Price updated successfully"})
+    except Exception as e:
+        return response_error(str(e), 500)
 
 
 if __name__ == "__main__":

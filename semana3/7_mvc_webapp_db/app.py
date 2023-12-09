@@ -27,7 +27,7 @@ class Product(db.Model):
 
 
 # Controller for Displaying the Product's Price
-@app.route("/product", methods=["GET"])
+@app.route("/products", methods=["GET"])
 def get_product():
     product = Product.query.first()
     price = product.price if product else None
@@ -35,7 +35,7 @@ def get_product():
 
 
 # Controller for Updating the Product's Price
-@app.route("/product", methods=["POST"])
+@app.route("/products", methods=["POST"])
 def update_product():
     new_price = request.form.get("price")
     product = Product.query.first()
