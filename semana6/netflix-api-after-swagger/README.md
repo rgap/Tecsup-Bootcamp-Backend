@@ -55,8 +55,22 @@ from rest_framework.viewsets import ModelViewSet
 serializers.py en cada app
 ```
 
-### DRF
+### Swagger
 
 ```
 pip install drf-yasg
+http://127.0.0.1:8000/swagger/
+```
+
+### JWT
+
+```
+pip install djangorestframework-simplejwt
+```
+
+### Requests
+
+```
+pip install requests
+
 ```
