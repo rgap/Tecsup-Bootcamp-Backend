@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "user",
     "country",
     "client",
+    "payment",
 ]
 
 MIDDLEWARE = [
