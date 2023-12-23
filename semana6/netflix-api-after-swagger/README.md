@@ -74,3 +74,15 @@ pip install djangorestframework-simplejwt
 pip install requests
 
 ```
+
+### CORS
+
+```
+pip install django-cors-headers
+```
+
+### ENV EN DJANGO
+
+```
+pip install python-decouple
+```
