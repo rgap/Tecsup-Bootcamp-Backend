@@ -8,7 +8,7 @@
 
 // Forma moderna
 import express from "express";
-// import { responseError, responseSuccess } from "./responses.js";
+import { responseError, responseSuccess } from "./responses.js";
 import { searchById } from "./utils.js";
 
 const app = express();
@@ -41,10 +41,7 @@ const users = [
 
 // minificado
 app.get("/", (req, res) => {
-  return res.status(200).json({
-    ok: true,
-    data: users,
-  });
+  return responseSuccess({ res, data: users });
 });
 
 // parametros por URL
@@ -53,16 +50,10 @@ app.get("/:id", (req, res) => {
   // si no encuentra, retorna undefined
 
   if (!user) {
-    return res.status(404).json({
-      ok: false,
-      data: "User not found",
-    });
+    return responseError({ res, data: "User not found" });
   }
 
-  return res.status(200).json({
-    ok: true,
-    data: user,
-  });
+  return responseSuccess({ res, data: user });
 });
 
 // CREATE
@@ -72,10 +63,7 @@ app.post("/", (req, res) => {
   user.id = users.length + 1;
   users.push(user);
 
-  return res.status(201).json({
-    ok: true,
-    data: user,
-  });
+  return responseSuccess({ res, data: user, status: 201 });
 });
 
 // UPDATE
@@ -84,10 +72,7 @@ app.put("/:id", (req, res) => {
   const user = searchById(users, Number(req.params.id));
 
   if (!user) {
-    return res.json({
-      ok: false,
-      data: "User not found",
-    });
+    return responseError({ res, data: "User not found" });
   }
 
   const body = req.body;
@@ -96,10 +81,7 @@ app.put("/:id", (req, res) => {
     user[key] = value;
   });
 
-  return res.status(200).json({
-    ok: true,
-    data: user,
-  });
+  return responseSuccess({ res, data: user });
 });
 
 // DELETE
@@ -108,18 +90,12 @@ app.delete("/:id", (req, res) => {
   const user = searchById(users, Number(req.params.id));
 
   if (!user) {
-    return res.json({
-      ok: false,
-      data: "User not found",
-    });
+    return responseError({ res, data: "User not found" });
   }
 
   users.splice(user, 1);
 
-  return res.status(200).json({
-    ok: true,
-    data: "User deleted",
-  });
+  return responseSuccess({ res, data: "User deleted" });
 });
 // se ejecuta al iniciar el server
 app.listen(3000, function () {
