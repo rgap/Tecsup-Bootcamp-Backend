@@ -8,7 +8,8 @@
 
 // Forma moderna
 import express from "express";
-// import { searchById } from "./utils.js";
+// import { responseError, responseSuccess } from "./responses.js";
+import { searchById } from "./utils.js";
 
 const app = express();
 // para entender json
@@ -36,6 +37,8 @@ const users = [
 //   });
 // });
 
+// READ
+
 // minificado
 app.get("/", (req, res) => {
   return res.status(200).json({
@@ -46,9 +49,7 @@ app.get("/", (req, res) => {
 
 // parametros por URL
 app.get("/:id", (req, res) => {
-  // Toda info de URL es de tipo String
-  const id = Number(req.params.id);
-  const user = users.find((user) => user.id === id);
+  const user = searchById(users, Number(req.params.id));
   // si no encuentra, retorna undefined
 
   if (!user) {
@@ -64,6 +65,8 @@ app.get("/:id", (req, res) => {
   });
 });
 
+// CREATE
+
 app.post("/", (req, res) => {
   const user = req.body;
   user.id = users.length + 1;
@@ -75,22 +78,47 @@ app.post("/", (req, res) => {
   });
 });
 
-app.delete("/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const userIndex = users.findIndex((user) => user.id === id);
+// UPDATE
 
-  if (userIndex === -1) {
-    return res.status(404).json({
+app.put("/:id", (req, res) => {
+  const user = searchById(users, Number(req.params.id));
+
+  if (!user) {
+    return res.json({
       ok: false,
       data: "User not found",
     });
   }
 
-  users.splice(userIndex, 1);
+  const body = req.body;
+
+  Object.entries(body).forEach(([key, value]) => {
+    user[key] = value;
+  });
 
   return res.status(200).json({
     ok: true,
-    data: users,
+    data: user,
+  });
+});
+
+// DELETE
+
+app.delete("/:id", (req, res) => {
+  const user = searchById(users, Number(req.params.id));
+
+  if (!user) {
+    return res.json({
+      ok: false,
+      data: "User not found",
+    });
+  }
+
+  users.splice(user, 1);
+
+  return res.status(200).json({
+    ok: true,
+    data: "User deleted",
   });
 });
 // se ejecuta al iniciar el server
