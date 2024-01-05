@@ -98,6 +98,6 @@ app.delete("/:id", (req, res) => {
   return responseSuccess({ res, data: "User deleted" });
 });
 // se ejecuta al iniciar el server
-app.listen(3000, function () {
-  console.log("El servidor inicio en el puerto 3000 http://localhost:3000");
+app.listen(3001, function () {
+  console.log("El servidor inicio en el puerto 3001 http://localhost:3001");
 });
