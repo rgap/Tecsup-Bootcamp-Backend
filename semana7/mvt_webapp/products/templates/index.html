@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MVT Example</title>
+  </head>
+  <body>
+    <!-- Template: Defines how the user sees the data (MVT Template) -->
+    <h1>Price: {{ price }}</h1>
+    <form method="post" action="/products/update/">
+      <input type="text" name="price" />
+      <button type="submit">Update</button>
+    </form>
+  </body>
+</html>
