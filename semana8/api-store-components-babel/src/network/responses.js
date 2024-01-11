@@ -5,7 +5,7 @@ export function responseSuccess({ res, data, status = 200 }) {
   });
 }
 
-export function responseError({ res, data, status = 500 }) {
+export function responseError({ res, status = 500, data }) {
   return res.status(status).json({
     ok: false,
     data,

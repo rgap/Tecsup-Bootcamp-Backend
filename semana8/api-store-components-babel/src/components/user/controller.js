@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { responseError, responseSuccess } from "../../network/responses.js";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../db";
+import { responseError, responseSuccess } from "../../network/responses";
 
 // READ
 
 export async function list(req, res) {
   try {
     const users = await prisma.user.findMany();
-    return responseSuccess({ res, data: users });
+    return responseSuccess({ res, data: users, status: 203 });
   } catch (error) {
     return responseError({ res, data: error.message });
   }
@@ -69,7 +67,7 @@ export async function update(req, res) {
   }
 }
 
-// DESTROY
+// DELETE
 
 export async function destroy(req, res) {
   try {

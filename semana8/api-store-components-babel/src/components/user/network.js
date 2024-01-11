@@ -3,8 +3,7 @@ import * as Controller from "./controller.js";
 
 const userRouter = Router();
 
-userRouter.get("/", Controller.list);
-
+// userRouter.get("/", Controller.list);
 userRouter.route("/").get(Controller.list);
 userRouter.route("/:id").get(Controller.getById);
 userRouter.route("/").post(Controller.store);

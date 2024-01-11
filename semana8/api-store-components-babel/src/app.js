@@ -1,7 +1,12 @@
+import cors from "cors";
 import express from "express";
-import userRouter from "./components/user/network.js";
+import { productRouter, userRouter } from "./components";
+import { apiVersion } from "./config";
 
 export const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1/users", userRouter);
+app.use(`${apiVersion}/users`, userRouter);
+app.use(`${apiVersion}/products`, productRouter);

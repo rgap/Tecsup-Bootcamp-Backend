@@ -44,9 +44,15 @@ npm install @prisma/client
 npx prisma generate
 ```
 
-Babel
+Babel para usar js "moderno". Por ejemplo sin el js al hacer import
 
 ```
 npm install -D @babel/cli @babel/core @babel/preset-env @babel/node
-npm i -D babel-watch
+NO ----> npm i -D babel-watch
+```
+
+Nodemon
+
+```
+npm i -D nodemon
 ```
