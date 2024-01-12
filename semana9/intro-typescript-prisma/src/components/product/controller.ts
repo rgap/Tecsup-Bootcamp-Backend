@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { IBody } from "../../core/types";
 import { prisma, prismaError } from "../../db";
 import { responseError, responseSuccess } from "../../network/responses";
 import { handleResponseError } from "../../utils";
@@ -39,15 +40,15 @@ export async function getById(req: Request, res: Response): Promise<Response> {
 
 export async function store(req: Request, res: Response): Promise<Response> {
   try {
-    const { ok, data } = mapInsertProduct(req.body);
+    const { ok, data } = mapInsertProduct(req.body as IBody);
 
     if (!ok) {
       return responseError({ res, data });
     }
 
-    await prisma.product.create({ data });
+    const newProduct = await prisma.product.create({ data });
 
-    return responseSuccess({ res, data: "Product created", status: 201 });
+    return responseSuccess({ res, data: newProduct, status: 201 });
   } catch (error) {
     return handleResponseError(res, error);
   }

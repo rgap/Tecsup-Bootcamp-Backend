@@ -1,7 +1,5 @@
-// import { response } from "../../util/utils";
-
-import { IBody } from "../../core/type";
-
+import { IBody, IProduct, IProductDB } from "../../core/types";
+import { response } from "../../utils";
 // {
 //     "product": {
 //         "title": "iPhone 15 pro",
@@ -16,12 +14,12 @@ import { IBody } from "../../core/type";
 //     }
 // }
 
-function mapProduct(product) {
+function mapProduct(product: IProduct) {
   const productMap = {
     ...product,
     isNew: product.is_new,
     pertangeDiscount: product.pertange_discount,
-  };
+  } as IProductDB;
 
   delete productMap.is_new;
   delete productMap.pertange_discount;
@@ -39,7 +37,10 @@ export function mapInsertProduct(body: IBody) {
 
   // caso 1: Que nos envien product.category_id y category
   if (product.category_id && category) {
-    return response(false, "No puedes enviar un category_id y category");
+    return response({
+      ok: false,
+      data: "No puedes enviar un category_id y category",
+    });
   }
 
   // caso 2: Nos envian product y category
@@ -53,9 +54,8 @@ export function mapInsertProduct(body: IBody) {
       },
     };
 
-    return response(true, insertData);
+    return response({ ok: true, data: insertData });
   }
 
-  // 3: Donde solo envien product
-  return response(true, mapProduct(product));
+  return response({ ok: true, data: mapProduct(product) });
 }
