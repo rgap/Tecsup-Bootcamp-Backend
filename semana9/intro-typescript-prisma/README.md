@@ -34,4 +34,7 @@ npm i --save-dev @types/cors
 npm install prisma --save-dev
 npx prisma init
 npx prisma migrate dev --name add_user_product_category_tables
+
+npm install @prisma/client
+npx prisma generate
 ```
