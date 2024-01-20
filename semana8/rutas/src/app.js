@@ -84,6 +84,11 @@ app.post("/login3", async (req, res) => {
     //   body: JSON.stringify({ email, password }),
     // });
     // const data = await response.json();
+    //// result = {
+    ////   data,
+    ////   status: response.status
+    //// };
+    //// id (result.status == 200) { ... }
     //////
 
     return responseSuccess({ res, data: "User authenticated successfully" });
