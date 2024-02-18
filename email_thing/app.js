@@ -13,8 +13,6 @@ async function sendEmail() {
     },
   });
 
-  //   xsmtpsib-fc1c2fdab0553245a4d940c17834379e00d370e9226fae659c6371ed56ab24b2-bRONAXD8MP5vjf2C
-
   // Set up email data
   let mailOptions = {
     from: "r.guzmanap@gmail.com", // Replace with your email
