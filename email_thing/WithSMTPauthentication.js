@@ -5,7 +5,7 @@ dotenv.config();
 async function sendEmail() {
   // Create a transporter
   let transporter = nodemailer.createTransport({
-    host: "smtp-relay.sendinblue.com", // SMTP server host
+    host: "smtp-relay.brevo.com", // SMTP server host
     port: 587, // SMTP server port
     auth: {
       user: "r.guzmanap@gmail.com", // Replace with your email
